@@ -1,0 +1,138 @@
+{% extends "main/base.html" %}
+
+{% block nav-bar %}
+<!-- Modal -->
+<nav class="my-nav">
+  <div class="modal fade" id="wallet-modal" tabindex="-1" role="dialog" aria-labelledby="wallet-modal" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Add Wallet</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <form action="/add-wallet/" method="POST">
+                  {% csrf_token %}
+                  {{ new_wallet_form.as_p }}
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" onclick="this.disabled=true; this.form.submit();" class="btn btn-primary" value="submit">Save changes</button>
+          </form>
+          </div>
+        </div>
+      </div>
+  </div>
+  {% for wallet in wallets %}
+  <div class="nav-item-wrapper my-nav-item">
+    <form action="/delete-wallet/" method="POST">
+      {% csrf_token %}
+      <input type="hidden" name="wallet-id" value="{{wallet.id}}"/>
+      <input type="hidden" name="current-wallet" value="{{current_wallet.name}}"/>
+      <button type="submit" class="x-button" onclick="this.disabled=true; this.form.submit();">
+        <i class="fas fa-times-circle"></i>
+      </button>
+    </form>
+    <a class="my-nav-item" href="/wallet/{{wallet.name}}/">
+    <!-- 
+      <form action="/delete-transaction/" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="transaction-id" value="{{transaction.id}}"/>
+        <input type="hidden" name="current-wallet" value="{{current_wallet.name}}"/>
+        <button type="submit" class="x-button" onclick="this.disabled=true; this.form.submit();">
+          <i class="fas fa-times-circle"></i>
+        </button>
+      </form> -->
+      <p>{{wallet.name}}</p>
+    </a>
+  </div>
+  {% endfor %}
+  <a type="button" data-toggle="modal" data-target="#wallet-modal" class="add-wallet">
+      <i class="fas fa-plus-circle"></i>
+  </a>
+</nav>
+{% endblock nav-bar %}
+
+{% block content %}
+<!-- Modal -->
+<div class="modal fade" id="transaction-modal" tabindex="-1" role="dialog" aria-labelledby="transaction-modal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Add Transaction</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form action="/add-transaction/" method="POST">
+                {% csrf_token %}
+                {{ new_transaction_form.as_p }}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" onclick="this.disabled=true; this.form.submit();" class="btn btn-primary" value="submit">Save changes</button>
+        </form>
+        </div>
+      </div>
+    </div>
+</div>
+<div class="main">
+    <div class="balance">
+        <!-- CHART -->
+        <div class="hidden" id="BTC-balance">{{current_wallet.get_btc_in_pln}}</div>
+        <div class="hidden" id="XRP-balance">{{current_wallet.get_xrp_in_pln}}</div>
+        <div class="hidden" id="ETH-balance">{{current_wallet.get_eth_in_pln}}</div>
+        <div class="hidden" id="PLN-balance">{{current_wallet.pln_balance}}</div>
+
+        <canvas id="balance-chart" width=340px></canvas>
+        <div class="donut-inner">
+          <p>{{current_wallet.get_total_balance}}</p>
+        </div>
+    </div>
+
+    <div class="history">
+        <div class="history-title-wrapper">
+            <p class="history-title"> HISTORY</p>
+            <a type="button" data-toggle="modal" data-target="#transaction-modal" class="add-transaction">
+              <i class="fas fa-plus-circle"></i>
+            </a>
+        </div>
+        <div class="history-items-wrapper">
+        {% for transaction in current_wallet.transaction_set.all %}
+            <div class="history-item">
+              <form action="/delete-transaction/" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="transaction-id" value="{{transaction.id}}"/>
+                <input type="hidden" name="current-wallet" value="{{current_wallet.name}}"/>
+                <button type="submit" class="x-button" onclick="this.disabled=true; this.form.submit();">
+                  <i class="fas fa-times-circle"></i>
+                </button>
+              </form>
+                <div class="transaction-informations">
+                    <div class="paid">
+                        <p class="currency">{{transaction.currency_paid}}</p>
+                        <p class="amount">{{transaction.amount_paid.normalize}}</p>
+                    </div>
+                    <div class="arrow">
+                        <i class="fas fa-long-arrow-alt-right"></i>
+                    </div>
+                    <div class="recived">
+                        <p class="currency">{{transaction.currency_recived}}</p>
+                        <p class="amount">{{transaction.amount_recived.normalize}}</p>
+                    </div>
+                </div>
+                <div class="transaction-description">
+                    <p>"{{transaction.description}}"</p>
+                </div>
+                <div class="transaction-date">
+                    <p>{{transaction.date}}</p>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+<div>
+{% endblock content %}

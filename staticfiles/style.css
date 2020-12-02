@@ -1,0 +1,263 @@
+/* HOME */
+
+
+.wallets-container {
+    height: 400px;
+    width: 350px;
+    background: #B8B8FF;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.horizontal-line {
+    background:  #707070;
+    height: 1px;
+    width: 100%;
+}
+
+.center-home {
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wallets-title {
+}
+
+.wallet-items {
+    overflow: auto;
+    height: calc(100vh - 355px);  
+}
+.wallet-item {
+    height: 50px;
+    background: #9381FF;
+    margin: 10px;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    border-radius: 5px;
+    text-decoration: none !important;
+    color: white;
+}
+
+.wallet-item:hover {
+    color: black;
+}
+
+.fill {
+    width: 100%;
+    height: 100%;
+}
+
+/* WALLET-INDEX */
+body {
+    margin: 0px;
+    box-sizing: border-box;
+    background: #F8F7FF;
+    font-family: Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif; 
+}
+
+p {
+    margin: 1px;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    color: #707070;
+    /* because of flex-direction, to center i've used aligin-items insted of justify-content: ; */
+    align-items: center; 
+}
+
+.balance {
+    min-height: 150px;
+    height: 30vh;
+    
+}
+
+.hidden {
+    display: none;
+}
+
+/* NAVBAR */
+.my-nav {
+    background:#B8B8FF;
+    display: flex;
+    flex-direction: row;
+    height: 50px;
+    
+}
+
+.my-nav-item, .add-wallet, .add-transaction {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:#9381FF;
+    width: 150px;
+    margin: 8px;
+    margin-right: 0px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #F8F7FF;
+    text-decoration: none !important; 
+
+    position: relative;
+
+}
+
+.add-wallet {
+    width: 50px;
+}
+
+.my-nav-item:hover {
+    color: black;
+}
+.add-wallet:hover {
+    color: black;
+}
+
+.x-button {
+    position: absolute;
+    right: -10px;
+    top: -9px;
+
+    z-index: 12;
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+
+/* HISTORY */
+.history {
+    background:#B8B8FF;
+    width: 800px;
+    height: calc(70vh - 50px);
+    overflow: hidden;
+
+    /* rounded corners */
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.history-items-wrapper {
+    overflow: auto;
+    height: calc(70vh - 120px);
+}
+
+.history-item {
+    background: #F8F7FF;
+    height: 100px;
+    margin: 20px;
+    display: flex;
+    position: relative;
+    border-radius: 10px;
+    position: relative;
+}
+
+.donut-inner {
+    margin-top: -83px;
+    margin-bottom: 83px;
+    margin-right: -145px;
+    margin-left: 145px;
+    color: black;
+ }
+
+.history-item:first-child {
+    margin-top: 5px;
+}
+
+.transaction-informations {
+    width:50%;
+    height: 100%;
+    display: flex;
+}
+
+.transaction-description {
+    width:50%;
+    height: 100%;
+    font-style: italic;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.transaction-informations .paid, .transaction-informations .recived {
+    width: 45%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.transaction-informations .arrow {
+    width: 10%;
+    height: 100%;
+    /* background: green; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.currency {
+    font-size: 20px;
+}
+
+.amount {
+    font-size: 15px;
+}
+
+.transaction-date {
+    position: absolute;
+    font-size: 10px;
+    right: 2px;
+    bottom: 2px;
+}
+
+.history-title-wrapper {
+    text-align: center;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.add-transaction {
+    position: absolute;
+    right: 30px;
+    height: 50%;
+}
+
+.history-title {
+    font-size: 35px;
+}
+
+/* SCROLL BAR */
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+    margin-bottom: 100px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: inherit; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
